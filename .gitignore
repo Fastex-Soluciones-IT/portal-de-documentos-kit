@@ -1,0 +1,23 @@
+# Secretos — NUNCA versionar
+*.env
+secrets.env
+*.key
+*.pem
+
+# Artefactos temporales del MCP / Office
+~$*.docx
+*.tmp
+*.tmp-docai-kit
+.DS_Store
+
+# Salida de `docai-kit extract` (se regenera)
+trabajo/
+
+# Entornos y cachés
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+node_modules/
+
+# Nota: plantillas/ (fuente) y componentes/ (salida de `docai-kit build`) se versionan.

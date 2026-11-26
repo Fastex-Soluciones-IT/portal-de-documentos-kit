@@ -1,0 +1,23 @@
+[
+  {
+    "key": "expandir",
+    "kind": "improve",
+    "name": "Expandir texto (ejemplo)",
+    "description": "Override de ejemplo para la acción 'mejorar': amplía el texto manteniendo el tono.",
+    "instruction": "Amplía el texto del usuario en español, manteniendo el tono formal y sin inventar datos."
+  },
+  {
+    "key": "objeto_contrato",
+    "kind": "field",
+    "name": "Objeto del contrato (ejemplo)",
+    "description": "Prompt de ejemplo para autocompletar el campo 'objeto'.",
+    "instruction": "Redacta el objeto del contrato a partir de los datos del formulario, en una frase clara."
+  },
+  {
+    "key": "resumen_calculo",
+    "kind": "calculation",
+    "name": "Resumen de cálculo (ejemplo)",
+    "description": "Prompt de ejemplo de tipo 'calculation': genera un texto a partir de valores calculados, referenciable por un cálculo ai_generation.",
+    "instruction": "Genera un resumen en español del coste anual estimado a partir de la potencia y el precio facilitados."
+  }
+]

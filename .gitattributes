@@ -1,0 +1,5 @@
+# La salida de `docai-kit build` debe ser byte-estable en cualquier sistema (V11): sin conversión de
+# finales de línea al hacer checkout, también en Windows con core.autocrlf.
+* text=auto eol=lf
+*.docx binary
+*.pdf binary

@@ -1,0 +1,21 @@
+{
+  "nombre_seccion": "Instalación fotovoltaica — Módulo A",
+  "descripcion": "Sección de ejemplo para la instalación fotovoltaica del módulo A.",
+  "num_referencia": 42,
+  "cantidad_total": 20,
+  "precio_amount": 350.0,
+  "fecha_inicio": "2026-06-01",
+  "fecha_fin": "2026-09-30",
+  "pie_foto": "Diagrama esquemático de la instalación",
+  "tipo_servicio": "instalacion",
+  "subtipo_servicio": "inst_solar",
+  "coste_total": 7000.0,
+  "activo": true,
+  "incluir_notas": true,
+  "partidas": [
+    {"descripcion": "Módulo solar 400 Wp", "cantidad": 20, "precio": 180.0},
+    {"descripcion": "Inversor trifásico 8 kW", "cantidad": 1, "precio": 1200.0},
+    {"descripcion": "Cableado y protecciones", "cantidad": 1, "precio": 450.0},
+    {"descripcion": "Estructura de soporte", "cantidad": 1, "precio": 350.0}
+  ]
+}

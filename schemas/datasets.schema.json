@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "datasets.schema.json",
+  "title": "datasets.json — un dataset o un array de datasets (POST /datasets/import)",
+  "$comment": "GENERADO por tools/gen_schemas.py desde app/models.py:TemplateDatasetCreate. No editar a mano.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/dataset"
+    },
+    {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dataset"
+      }
+    }
+  ],
+  "$defs": {
+    "dataset": {
+      "properties": {
+        "key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "maxLength": 1024,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/dataset_row"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "name"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    },
+    "dataset_row": {
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    }
+  }
+}

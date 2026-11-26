@@ -1,0 +1,17 @@
+{
+  "key": "provincias_municipios",
+  "name": "Provincias y municipios (ejemplo)",
+  "description": "Catálogo de ejemplo con una cascada provincia -> municipio. Las filas de provincia tienen parent=null; cada municipio referencia su provincia en parent.",
+  "rows": [
+    {"value": "madrid", "label": "Madrid", "parent": null},
+    {"value": "barcelona", "label": "Barcelona", "parent": null},
+    {"value": "valencia", "label": "Valencia", "parent": null},
+    {"value": "madrid_capital", "label": "Madrid", "parent": "madrid"},
+    {"value": "alcala_de_henares", "label": "Alcalá de Henares", "parent": "madrid"},
+    {"value": "getafe", "label": "Getafe", "parent": "madrid"},
+    {"value": "barcelona_capital", "label": "Barcelona", "parent": "barcelona"},
+    {"value": "hospitalet", "label": "L'Hospitalet de Llobregat", "parent": "barcelona"},
+    {"value": "valencia_capital", "label": "València", "parent": "valencia"},
+    {"value": "gandia", "label": "Gandia", "parent": "valencia"}
+  ]
+}

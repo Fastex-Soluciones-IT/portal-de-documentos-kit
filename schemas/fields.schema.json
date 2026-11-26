@@ -1,0 +1,353 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fields.schema.json",
+  "title": "fields.json — array de FieldConfig (PUT /templates/{id}/fields/import)",
+  "$comment": "GENERADO por tools/gen_schemas.py desde app/models.py:FieldConfig + app/fields/config.py. No editar a mano.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/field_config"
+  },
+  "$defs": {
+    "field_config": {
+      "description": "JSON config for one template field (B14.2).\n\n``field_id`` and ``tenant_id`` are server-owned (immutable) — accepted in a\nPUT/import body but IGNORED. ``unit`` is derived (read-only). Everything else\nround-trips into the underlying ``TemplateVariable``.",
+      "properties": {
+        "field_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "name": {
+          "anyOf": [
+            {
+              "maxLength": 255,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "technical_name": {
+          "anyOf": [
+            {
+              "maxLength": 255,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "label": {
+          "anyOf": [
+            {
+              "maxLength": 255,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "boolean",
+                "currency",
+                "date",
+                "email",
+                "image",
+                "list",
+                "number",
+                "select",
+                "text",
+                "textarea",
+                "url"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "required": {
+          "default": false,
+          "type": "boolean"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "maxLength": 2000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "help_text": {
+          "anyOf": [
+            {
+              "maxLength": 1024,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "maxLength": 255,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "field_order": {
+          "default": 0,
+          "type": "integer"
+        },
+        "visible": {
+          "default": true,
+          "type": "boolean"
+        },
+        "editable": {
+          "default": true,
+          "type": "boolean"
+        },
+        "visible_when": {
+          "anyOf": [
+            {
+              "maxLength": 2048,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "value_origin": {
+          "anyOf": [
+            {
+              "enum": [
+                "manual",
+                "dataset",
+                "ai",
+                "formula",
+                "code",
+                "endpoint",
+                "pipeline"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "calculation_binding": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/calculation_binding"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "options_source": {
+          "anyOf": [
+            {
+              "maxLength": 255,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "depends_on": {
+          "anyOf": [
+            {
+              "maxLength": 255,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "options": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "default_value": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "formula": {
+          "anyOf": [
+            {
+              "maxLength": 2048,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "calculated": {
+          "default": false,
+          "type": "boolean"
+        },
+        "tenant_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "type": "object",
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "value_origin"
+            ],
+            "properties": {
+              "value_origin": {
+                "enum": [
+                  "ai",
+                  "endpoint",
+                  "pipeline"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "calculation_binding"
+            ],
+            "properties": {
+              "calculation_binding": {
+                "type": "object",
+                "required": [
+                  "calculation_key"
+                ],
+                "properties": {
+                  "calculation_key": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "calculation_binding": {
+      "description": "A field's binding to a reusable calculation (B13/B14).",
+      "properties": {
+        "calculation_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "input_map": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object",
+      "additionalProperties": false
+    }
+  }
+}

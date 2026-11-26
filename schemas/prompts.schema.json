@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "prompts.schema.json",
+  "title": "prompts.json — array de AIPromptCreate (POST /templates/{id}/prompts/import)",
+  "$comment": "GENERADO por tools/gen_schemas.py desde app/models.py:AIPromptCreate. No editar a mano.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/prompt"
+  },
+  "$defs": {
+    "prompt": {
+      "properties": {
+        "key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "default": "improve",
+          "enum": [
+            "improve",
+            "generate",
+            "field",
+            "calculation"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "maxLength": 1024,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "instruction": {
+          "maxLength": 8192,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "name",
+        "instruction"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    }
+  }
+}

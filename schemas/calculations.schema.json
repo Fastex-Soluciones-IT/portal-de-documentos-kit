@@ -1,0 +1,526 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "calculations.schema.json",
+  "title": "calculations.json — array de CalculationCreate (POST /templates/{id}/calculations/import)",
+  "$comment": "GENERADO por tools/gen_schemas.py desde app/models.py:CalculationCreate + app/calculations/spec_validation.py. No editar a mano.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/calculation"
+  },
+  "$defs": {
+    "calculation": {
+      "properties": {
+        "key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "maxLength": 1024,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "calc_type": {
+          "enum": [
+            "formula",
+            "dataset_lookup",
+            "ai_generation",
+            "endpoint",
+            "pipeline",
+            "code"
+          ],
+          "type": "string"
+        },
+        "output_type": {
+          "default": "text",
+          "enum": [
+            "text",
+            "integer",
+            "decimal",
+            "number",
+            "date",
+            "boolean"
+          ],
+          "type": "string"
+        },
+        "output_unit": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "dataset_key": {
+              "type": "string"
+            },
+            "match_input": {
+              "type": "string"
+            },
+            "match_column": {
+              "type": "string"
+            },
+            "output_column": {
+              "type": "string"
+            },
+            "prompt_key": {
+              "type": "string"
+            },
+            "instruction": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "input_fields": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "output": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "connector_key": {
+              "type": "string"
+            },
+            "method": {
+              "default": "GET",
+              "type": "string"
+            },
+            "path": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "request_map": {
+              "anyOf": [
+                {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "response_map": {
+              "anyOf": [
+                {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "steps": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "dataset_lookup",
+                      "formula",
+                      "ai_generation",
+                      "endpoint"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "additionalProperties": true
+        },
+        "execution_modes": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "validation": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "key",
+        "name",
+        "calc_type"
+      ],
+      "type": "object",
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "calc_type"
+            ],
+            "properties": {
+              "calc_type": {
+                "const": "formula"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "spec": {
+                "$ref": "#/$defs/spec_formula"
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "calc_type"
+            ],
+            "properties": {
+              "calc_type": {
+                "const": "dataset_lookup"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "spec": {
+                "$ref": "#/$defs/spec_dataset_lookup"
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "calc_type"
+            ],
+            "properties": {
+              "calc_type": {
+                "const": "ai_generation"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "spec": {
+                "$ref": "#/$defs/spec_ai_generation"
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "calc_type"
+            ],
+            "properties": {
+              "calc_type": {
+                "const": "endpoint"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "spec": {
+                "$ref": "#/$defs/spec_endpoint"
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "calc_type"
+            ],
+            "properties": {
+              "calc_type": {
+                "const": "pipeline"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "spec": {
+                "$ref": "#/$defs/spec_pipeline"
+              }
+            },
+            "required": [
+              "spec"
+            ]
+          }
+        }
+      ]
+    },
+    "spec_formula": {
+      "properties": {
+        "expression": {
+          "type": "string",
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "expression"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    },
+    "spec_dataset_lookup": {
+      "properties": {
+        "dataset_key": {
+          "type": "string"
+        },
+        "match_input": {
+          "type": "string"
+        },
+        "match_column": {
+          "type": "string"
+        },
+        "output_column": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_key",
+        "match_input",
+        "match_column",
+        "output_column"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    },
+    "spec_ai_generation": {
+      "properties": {
+        "prompt_key": {
+          "type": "string"
+        },
+        "instruction": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "input_fields": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "output": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "prompt_key"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    },
+    "spec_endpoint": {
+      "properties": {
+        "connector_key": {
+          "type": "string"
+        },
+        "method": {
+          "default": "GET",
+          "type": "string"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "request_map": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "response_map": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "connector_key"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    },
+    "spec_pipeline": {
+      "properties": {
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "enum": [
+                  "dataset_lookup",
+                  "formula",
+                  "ai_generation",
+                  "endpoint"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "steps"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    }
+  }
+}

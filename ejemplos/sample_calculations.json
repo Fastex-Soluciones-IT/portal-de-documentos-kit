@@ -1,0 +1,36 @@
+[
+  {
+    "key": "iva_total",
+    "name": "Total con IVA (ejemplo)",
+    "description": "Calcula el total aplicando un 21% de IVA sobre la base imponible.",
+    "calc_type": "formula",
+    "output_type": "number",
+    "output_unit": "EUR",
+    "inputs": [
+      {"name": "base", "type": "number", "required": true}
+    ],
+    "spec": {
+      "expression": "base * 1.21"
+    },
+    "execution_modes": ["on_change", "on_generate"]
+  },
+  {
+    "key": "tarifa_externa",
+    "name": "Tarifa desde API externa (ejemplo)",
+    "description": "Consulta una tarifa a un conector HTTP. Requiere dar de alta el conector 'precios_energia' antes de publicar/generar.",
+    "calc_type": "endpoint",
+    "output_type": "number",
+    "output_unit": "EUR/kWh",
+    "inputs": [
+      {"name": "potencia", "type": "number", "required": true}
+    ],
+    "spec": {
+      "connector_key": "precios_energia",
+      "method": "GET",
+      "path": "/tarifa",
+      "request_map": {"kw": "potencia"},
+      "response_map": {"value": "precio"}
+    },
+    "execution_modes": ["on_generate"]
+  }
+]

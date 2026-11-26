@@ -1,0 +1,18 @@
+{
+  "key": "servicios_disponibles",
+  "name": "Servicios disponibles (ejemplo de sección)",
+  "description": "Catálogo de ejemplo con una cascada tipo_servicio -> subtipo_servicio. Las filas de tipo tienen parent=null; cada subtipo referencia su tipo en parent.",
+  "rows": [
+    {"value": "mantenimiento", "label": "Mantenimiento", "parent": null},
+    {"value": "instalacion", "label": "Instalación", "parent": null},
+    {"value": "consultoria", "label": "Consultoría", "parent": null},
+    {"value": "mant_preventivo", "label": "Mantenimiento preventivo", "parent": "mantenimiento"},
+    {"value": "mant_correctivo", "label": "Mantenimiento correctivo", "parent": "mantenimiento"},
+    {"value": "mant_predictivo", "label": "Mantenimiento predictivo", "parent": "mantenimiento"},
+    {"value": "inst_electrica", "label": "Instalación eléctrica", "parent": "instalacion"},
+    {"value": "inst_solar", "label": "Instalación solar", "parent": "instalacion"},
+    {"value": "inst_hidraulica", "label": "Instalación hidráulica", "parent": "instalacion"},
+    {"value": "cons_energetica", "label": "Consultoría energética", "parent": "consultoria"},
+    {"value": "cons_normativa", "label": "Consultoría normativa", "parent": "consultoria"}
+  ]
+}

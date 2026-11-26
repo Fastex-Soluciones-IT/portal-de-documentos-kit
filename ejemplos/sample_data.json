@@ -1,0 +1,30 @@
+{
+  "cliente": "Energía Solar del Sur S.L.",
+  "company": "Acme Corp",
+  "project": "Planta Fotovoltaica Las Encinas",
+  "date": "2026-06-05",
+  "num_organizacion": 28079,
+  "fecha_firma": "2026-06-05",
+  "logo_caption": "Logotipo corporativo de Energía Solar del Sur",
+  "objeto_desc": "Memoria técnica de la instalación fotovoltaica de autoconsumo conectada a red de 132,5 kWp sobre cubierta industrial.",
+  "incluir_anexo": true,
+  "provincia": "madrid",
+  "municipio": "alcala_de_henares",
+  "coordenadas_utm": "30T 459123 4474890",
+  "potencia_total_kw": 132.5,
+  "superficie_m2": 740.0,
+  "perdidas_kw": 8.25,
+  "seccion_min": 4,
+  "potencia_instalada_kwp": 132.5,
+  "base": 10000,
+  "modulos": [
+    {"nombre": "JA Solar JAM72S30-545", "potencia_wp": 545, "cantidad": 120},
+    {"nombre": "Longi Hi-MO 5 540W", "potencia_wp": 540, "cantidad": 100},
+    {"nombre": "Trina Vertex 550W", "potencia_wp": 550, "cantidad": 23}
+  ],
+  "items": [
+    {"name": "Inversor 100 kW", "qty": 1},
+    {"name": "Estructura coplanar", "qty": 243},
+    {"name": "Cuadro de protecciones AC", "qty": 1}
+  ]
+}

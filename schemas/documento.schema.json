@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "documento.schema.json",
+  "title": "Salida de `docai-kit extract` (trabajo/<slug>/documento.json)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "slug", "origen_sha256", "avisos", "parrafos"],
+  "properties": {
+    "version": {"const": 1},
+    "slug": {"type": "string"},
+    "origen_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "avisos": {"type": "array", "items": {"$ref": "#/$defs/fallo"}},
+    "parrafos": {"type": "array", "items": {"$ref": "#/$defs/parrafo"}}
+  },
+  "$defs": {
+    "fallo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["codigo", "severidad", "mensaje", "ubicacion"],
+      "properties": {
+        "codigo": {"type": "string"},
+        "severidad": {"enum": ["error", "aviso"]},
+        "mensaje": {"type": "string"},
+        "ubicacion": {"type": ["string", "null"]}
+      }
+    },
+    "parrafo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "style", "heading_level", "text", "runs", "chapter"],
+      "properties": {
+        "id": {"type": "string"},
+        "style": {"type": ["string", "null"]},
+        "heading_level": {"type": ["integer", "null"]},
+        "text": {"type": "string"},
+        "runs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text", "rPr_hash"],
+            "properties": {"text": {"type": "string"}, "rPr_hash": {"type": "string"}}
+          }
+        },
+        "chapter": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

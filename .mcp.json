@@ -1,0 +1,11 @@
+{
+  "//": "DocAI Templates Manager — MCP servers an agent needs to convert a Word into DocAI components.",
+  "//1": "word-document-server: OPTIONAL and READ-ONLY (docai-kit extract/build replace it). Never use its edit tools on plantillas/ or componentes/.",
+  "//2": "Default below runs uvx via a login shell so ~/.local/bin (uv/uvx) is on PATH even when the MCP client launches without sourcing the profile. No path hardcoding. For a local clone, see docs/01-MCP-SETUP.md.",
+  "mcpServers": {
+    "word-document-server": {
+      "command": "bash",
+      "args": ["-lc", "exec uvx --from office-word-mcp-server word_mcp_server"]
+    }
+  }
+}

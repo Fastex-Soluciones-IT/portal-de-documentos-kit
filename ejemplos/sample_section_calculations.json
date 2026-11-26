@@ -1,0 +1,33 @@
+[
+  {
+    "key": "coste_seccion",
+    "name": "Coste de sección (ejemplo)",
+    "description": "Calcula el coste total de la sección multiplicando la cantidad total por el precio unitario.",
+    "calc_type": "formula",
+    "output_type": "number",
+    "output_unit": "EUR",
+    "inputs": [
+      {"name": "cantidad", "type": "number", "required": true},
+      {"name": "precio", "type": "number", "required": true}
+    ],
+    "spec": {
+      "expression": "cantidad * precio"
+    },
+    "execution_modes": ["on_change", "on_generate"]
+  },
+  {
+    "key": "coste_con_iva_seccion",
+    "name": "Coste con IVA de sección (ejemplo)",
+    "description": "Aplica el 21% de IVA sobre el coste calculado de la sección.",
+    "calc_type": "formula",
+    "output_type": "number",
+    "output_unit": "EUR",
+    "inputs": [
+      {"name": "coste_base", "type": "number", "required": true}
+    ],
+    "spec": {
+      "expression": "coste_base * 1.21"
+    },
+    "execution_modes": ["on_change", "on_generate"]
+  }
+]

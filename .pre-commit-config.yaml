@@ -1,0 +1,20 @@
+# pre-commit (https://pre-commit.com): `pre-commit install` una vez por clon.
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: uv run ruff check
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff format --check
+        entry: uv run ruff format --check
+        language: system
+        types: [python]
+      - id: docai-kit-validate
+        name: docai-kit validate (cada plantilla)
+        entry: bash -c 'for d in plantillas/*/; do [ -d "$d" ] || continue; uv run docai-kit validate "$(basename "$d")" || exit 1; done'
+        language: system
+        pass_filenames: false
+        files: ^(plantillas|componentes|schemas|src)/

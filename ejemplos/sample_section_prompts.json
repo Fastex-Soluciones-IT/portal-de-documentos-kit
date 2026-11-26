@@ -1,0 +1,23 @@
+[
+  {
+    "key": "describir_seccion",
+    "kind": "field",
+    "name": "Describir sección (ejemplo)",
+    "description": "Prompt de ejemplo para autocompletar el campo 'descripcion' de una sección.",
+    "instruction": "Redacta una descripción breve y formal de la sección a partir de su nombre y tipo de servicio, en una o dos frases claras en español."
+  },
+  {
+    "key": "resumen_partidas",
+    "kind": "calculation",
+    "name": "Resumen de partidas (ejemplo)",
+    "description": "Prompt de ejemplo de tipo 'calculation': genera un resumen textual de las partidas de la sección.",
+    "instruction": "Genera un resumen en español de las partidas de la sección, indicando el número total de partidas, la cantidad total y el coste calculado facilitados."
+  },
+  {
+    "key": "mejorar_descripcion_seccion",
+    "kind": "improve",
+    "name": "Mejorar descripción de sección (ejemplo)",
+    "description": "Override de ejemplo para la acción 'mejorar': amplía la descripción de la sección manteniendo el tono formal.",
+    "instruction": "Amplía la descripción de la sección en español, manteniendo el tono técnico y formal sin inventar datos no proporcionados."
+  }
+]

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "inventario.schema.json",
+  "title": "inventario.yaml — qué hueco del Word pasa a ser qué campo (lo único que redacta el LLM)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "slug", "origen_sha256", "campos"],
+  "properties": {
+    "version": {"const": 1},
+    "slug": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_]*$"},
+    "origen_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nombre_plantilla": {
+      "description": "Nombre visible de la plantilla al subirla a DocAI (POST /templates/, campo `name`). Por defecto, el slug.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "nombres_heredados": {
+      "description": "Nombres técnicos que no cumplen ^[a-z][a-z0-9_]*$ y se aceptan (V07 los exime).",
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "huecos": {
+      "description": "Tokens ⟦hNNN⟧ que escribe `preparar` en el origen. Los que ningún `buscar` usa se restauran con su `original` al construir.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["token", "original"],
+        "properties": {
+          "token": {"type": "string", "pattern": "^⟦h[0-9]{3,}⟧$"},
+          "original": {"type": "string", "maxLength": 1}
+        }
+      }
+    },
+    "debe_desaparecer": {
+      "description": "Literales del origen que no pueden quedar en la plantilla (V06).",
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "campos": {"type": "array", "items": {"$ref": "#/$defs/campo"}},
+    "bloques": {"type": "array", "items": {"$ref": "#/$defs/bloque"}}
+  },
+  "$defs": {
+    "nombre": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$", "maxLength": 255},
+    "ocurrencia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["buscar", "esperadas"],
+      "properties": {
+        "buscar": {"type": "string", "minLength": 1},
+        "esperadas": {"type": "integer", "minimum": 1},
+        "regex": {"type": "boolean"},
+        "parte": {"type": "string", "pattern": "^(document|header[0-9]+|footer[0-9]+|footnotes|endnotes)$"},
+        "en": {"type": "string", "minLength": 1}
+      }
+    },
+    "opcion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value"],
+      "properties": {
+        "value": {"type": "string"},
+        "label": {"type": ["string", "null"]}
+      }
+    },
+    "campo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nombre", "tipo", "ocurrencias"],
+      "properties": {
+        "nombre": {"$ref": "#/$defs/nombre"},
+        "renombrado_de": {"$ref": "#/$defs/nombre"},
+        "nombre_tecnico": {"type": "string", "maxLength": 255},
+        "etiqueta": {"type": "string", "maxLength": 255},
+        "tipo": {
+          "enum": ["text", "textarea", "number", "date", "boolean", "select", "list", "image", "currency", "email", "url"]
+        },
+        "requerido": {"type": "boolean"},
+        "descripcion": {"type": "string", "maxLength": 512},
+        "ayuda": {"type": "string", "maxLength": 1024},
+        "capitulo": {"type": ["string", "null"], "maxLength": 255},
+        "orden": {"type": "integer"},
+        "visible": {"type": "boolean"},
+        "editable": {"type": "boolean"},
+        "visible_cuando": {"type": "string", "maxLength": 2048},
+        "origen_valor": {"enum": ["manual", "dataset", "ai", "formula", "code", "endpoint", "pipeline"]},
+        "calculo": {"type": "string", "minLength": 1, "maxLength": 128},
+        "entradas": {"type": "object", "additionalProperties": {"type": "string"}},
+        "dataset": {"type": "string", "minLength": 1, "maxLength": 255},
+        "depende_de": {"type": "string", "minLength": 1, "maxLength": 255},
+        "opciones": {"type": "array", "items": {"$ref": "#/$defs/opcion"}},
+        "valor_defecto": {"type": "string", "maxLength": 512},
+        "formula": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "calculado": {"type": "boolean"},
+        "ocurrencias": {"type": "array", "items": {"$ref": "#/$defs/ocurrencia"}}
+      }
+    },
+    "bloque": {
+      "type": "object",
+      "required": ["tipo"],
+      "properties": {"tipo": {"enum": ["tabla_repetible", "condicional"]}},
+      "oneOf": [{"$ref": "#/$defs/tabla_repetible"}, {"$ref": "#/$defs/condicional"}]
+    },
+    "tabla_repetible": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tipo", "lista", "tabla", "fila_plantilla", "columnas"],
+      "properties": {
+        "tipo": {"const": "tabla_repetible"},
+        "lista": {"$ref": "#/$defs/nombre"},
+        "tabla": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ancla"],
+          "properties": {
+            "ancla": {"type": "string", "minLength": 1},
+            "parte": {"type": "string", "pattern": "^(document|header[0-9]+|footer[0-9]+|footnotes|endnotes)$"}
+          }
+        },
+        "fila_plantilla": {"type": "integer", "minimum": 0},
+        "columnas": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["buscar", "atributo"],
+            "properties": {
+              "buscar": {"type": "string", "minLength": 1},
+              "atributo": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"},
+              "regex": {"type": "boolean"}
+            }
+          }
+        }
+      }
+    },
+    "condicional": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tipo", "variable", "desde", "hasta"],
+      "properties": {
+        "tipo": {"const": "condicional"},
+        "variable": {"$ref": "#/$defs/nombre"},
+        "desde": {"type": "string", "minLength": 1},
+        "hasta": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

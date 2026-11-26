@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ids_lock.schema.json",
+  "title": "ids.lock.json — registro nombre técnico -> FLD-xxxx (lo gestiona `docai-kit build`)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "siguiente", "campos", "retirados"],
+  "properties": {
+    "version": {"const": 1},
+    "siguiente": {"type": "integer", "minimum": 1},
+    "campos": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "pattern": "^FLD-[0-9]{4,}$"}
+    },
+    "retirados": {
+      "description": "FLD -> último nombre técnico que tuvo. Un ID retirado no se reutiliza nunca.",
+      "type": "object",
+      "propertyNames": {"pattern": "^FLD-[0-9]{4,}$"},
+      "additionalProperties": {"type": "string"}
+    }
+  }
+}

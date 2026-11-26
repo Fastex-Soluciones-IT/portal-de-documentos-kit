@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  kit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.19"
+
+      - name: Dependencias (uv.lock congelado)
+        run: uv sync --frozen
+
+      - name: ruff
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: pytest
+        run: uv run pytest
+
+      - name: docai-kit validate (cada plantilla)
+        run: |
+          set -e
+          for d in plantillas/*/; do
+            [ -d "$d" ] || continue
+            uv run docai-kit validate "$(basename "$d")"
+          done
+
+      - name: sync-from-docai --check
+        run: |
+          SRC="${DOCAI_SAMPLES:-/mnt/c/codigo/factoria-proyectos/backend/app/samples}"
+          if [ -d "$SRC" ] || [ -d "../factoria-proyectos/backend/app/samples" ]; then
+            tools/sync-from-docai.sh --check
+          else
+            echo "OMITIDO: la fuente canónica de DocAI (factoria-proyectos/backend/app/samples) no está disponible en este runner."
+          fi

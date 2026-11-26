@@ -1,0 +1,55 @@
+[
+  {
+    "field_id": "FLD-0001",
+    "name": "potencia_contratada",
+    "technical_name": "potencia_contratada",
+    "label": "Potencia contratada",
+    "type": "number",
+    "unit": null,
+    "required": true,
+    "description": "Potencia contratada por el cliente en kW.",
+    "help_text": "Indique la potencia que figura en el contrato de suministro.",
+    "chapter": "Datos de suministro",
+    "field_order": 0,
+    "visible": true,
+    "editable": true,
+    "visible_when": null,
+    "value_origin": "manual",
+    "calculation_binding": null,
+    "options_source": null,
+    "depends_on": null,
+    "options": null,
+    "default_value": null,
+    "formula": null,
+    "calculated": false
+  },
+  {
+    "field_id": "FLD-0002",
+    "name": "coste_anual_estimado",
+    "technical_name": "coste_anual_estimado",
+    "label": "Coste anual estimado",
+    "type": "currency",
+    "unit": "EUR",
+    "required": false,
+    "description": "Coste anual estimado, calculado a partir de la potencia y el precio.",
+    "help_text": "Valor calculado automáticamente; no editable por el usuario.",
+    "chapter": "Datos de suministro",
+    "field_order": 1,
+    "visible": true,
+    "editable": false,
+    "visible_when": null,
+    "value_origin": "endpoint",
+    "calculation_binding": {
+      "calculation_key": "coste_anual",
+      "input_map": {
+        "potencia": "potencia_contratada"
+      }
+    },
+    "options_source": null,
+    "depends_on": null,
+    "options": null,
+    "default_value": null,
+    "formula": null,
+    "calculated": true
+  }
+]
