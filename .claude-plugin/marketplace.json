@@ -1,0 +1,12 @@
+{
+  "name": "portal-de-documentos-kit",
+  "owner": { "name": "Fastex Soluciones IT" },
+  "description": "Skills de Portal de Documentos",
+  "plugins": [
+    {
+      "name": "portal-de-documentos-kit",
+      "source": "./skills/plantilla-desde-word",
+      "description": "Convierte un Word en una plantilla de Portal de Documentos"
+    }
+  ]
+}

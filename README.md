@@ -28,6 +28,35 @@ rellena un formulario y DocAI produce el Word/PDF final. Una plantilla se compon
 
 ---
 
+## Instalar como skill
+
+Necesita `git` y [`uv`](https://docs.astral.sh/uv/). La skill clona este repositorio la primera vez en
+`~/portal-de-documentos-kit`.
+
+**Claude Code** (dentro de una sesión):
+
+```
+/plugin marketplace add Fastex-Soluciones-IT/portal-de-documentos-kit
+/plugin install portal-de-documentos-kit@portal-de-documentos-kit
+```
+
+**GitHub Copilot** (en todos tus proyectos):
+
+```bash
+npx skills add Fastex-Soluciones-IT/portal-de-documentos-kit -g -a github-copilot
+```
+
+**Otros agentes** (Codex, Cursor, OpenCode, Gemini CLI…): el instalador pregunta para cuáles.
+
+```bash
+npx skills add Fastex-Soluciones-IT/portal-de-documentos-kit -g
+```
+
+Después pide: *«convierte `/ruta/a/contrato.docx` en una plantilla»*. Para actualizar el kit:
+`git -C ~/portal-de-documentos-kit pull --ff-only`.
+
+---
+
 ## Inicio rápido
 
 Requisitos: [`uv`](https://docs.astral.sh/uv/) (`curl -LsSf https://astral.sh/uv/install.sh | sh`). `uv`
